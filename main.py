@@ -1,16 +1,21 @@
-# This is a sample Python script.
+from api import fetch_all_users_data
+from last_seen_formatter import format_last_seen
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+def display_users_info():
+    users_data = fetch_all_users_data()
+    for user in users_data:
+        username = user.get('nickname')
+        first_name = user.get('firstName')
+        last_name = user.get('lastName')
+        last_seen = user.get('lastSeen')
+
+        if last_seen is not None:
+            last_seen_formatted = format_last_seen(last_seen)
+        else:
+            last_seen_formatted = "Never"
+
+        print(f"{username} ({first_name} {last_name}) - Last seen: {last_seen_formatted}")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    display_users_info()
